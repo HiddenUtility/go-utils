@@ -15,13 +15,12 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: '1.23'
+        cache: false
     - name: Learn about Go
       run: |
         go version
         go list -m all
-    - name: Install golangci-lint
-      uses: golangci/golangci-lint-action@v4
     - name: Run tests
       run: go test -v ./...
-    - name: Run linter
-      run: golangci-lint run -v
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v4
