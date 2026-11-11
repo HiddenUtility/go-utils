@@ -1,5 +1,5 @@
 ---
-name: tdd-implement
+name: implement
 description: TDD（テスト駆動開発）に基づき、Goのユーティリティ機能を実装する。仕様確認、テスト作成、実装、品質ガード、そして `retro` の呼び出しまでを一貫して行う。
 ---
 
