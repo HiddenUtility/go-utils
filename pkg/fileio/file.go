@@ -1,5 +1,5 @@
-// Package io provides utility functions for file operations.
-package io
+// Package fileio provides utility functions for file operations.
+package fileio
 
 import (
 	"fmt"
