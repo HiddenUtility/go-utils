@@ -212,7 +212,7 @@ NOT EVALUATEDが1つでも存在し、FAILがない場合は、総合評価をNO
 
 評価結果を以下のパスにMarkdown形式で出力する。
 
-`docs/dryrun-reports/eval_report_YYYYMMDD_HHMMSS.md`
+`docs/dryrun-reports/<評価したスキル名>/eval_report_YYYYMMDD_HHMMSS.md`
 
 ファイル名の日時は、レポート作成時のローカル時刻を使用する。
 
