@@ -701,6 +701,7 @@ flowchart TD
 - **Task Status:** `COMPLETED / PARTIALLY_COMPLETED / BLOCKED / CANCELLED / INTERRUPTED`
 - **Summary:** 今回の作業成果を簡潔に説明する。
 - **Remaining Tasks:** 未完了事項があれば記載する。
+- **Git commit message:** gitのcommit メッセージでよく使われるプレフィックスをつけて，変更の総括を英語で表示する。(例 feature: impl copy a file.)
 
 履歴ファイルを作成できなかった場合は、その理由を明示してください。
 
