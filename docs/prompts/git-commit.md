@@ -1,8 +1,11 @@
-@docs/histories の 最新の markdown フィルを読んで，変更内容を理解してください．
-ターミナルに git commit 用のメッセージを**英語で**表示してください．
-メッセージ形式は下記を参照してください．
+`git rev-parse --show-toplevel`を実行して，確認して．
+`git status --short`を実行して，確認して．
+`git diff --stat`を実行して，確認して．
+`git diff`を実行して，確認して．
+下記のメッセージ形式に従って，報告して．
 
 ## メッセージ形式
+- 英語で表示
 - **1行目（プレフィックス + 概要）:**
   - 形式: `<type>(<scope>): <簡潔な要約>`
   - 例: `docs(agents): AGENTS.mdのルールと運用方針を更新`

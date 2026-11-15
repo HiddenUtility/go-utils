@@ -1,7 +1,3 @@
-implement を使用してください．
-内容は下記を参照してください．
-
-
 # Codex Implementation Specification: SqlLogger (Golang)
 
 ## 1. 目的
