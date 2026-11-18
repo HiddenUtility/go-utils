@@ -1,0 +1,36 @@
+
+# モデル選択
+model = "gemma4:26b"
+# model = "qwen3.8:27b"
+
+approval_policy = "never"
+
+
+default_permissions = "project-edit"
+[permissions.project-edit]
+description = "Allow editing project files, Git metadata, and Codex skills."
+extends = ":workspace"
+
+[permissions.project-edit.filesystem.":workspace_roots"]
+"." = "write"
+".git" = "write"
+".agents" = "write"
+
+[permissions.project-edit.network]
+enabled = true
+
+# SSEのアイドルタイムアウトを15分に変更
+stream_idle_timeout_ms = 1800000
+
+# SSE切断時の再試行回数
+stream_max_retries = 10
+
+# HTTPリクエストの再試行回数
+request_max_retries = 5
+
+# localの Ollama を使用
+model_provider = "ollama_local"
+[model_providers.ollama_local]
+name = "Ollama localhost"
+base_url = "http://localhost:11434/v1/"
+wire_api = "responses"
