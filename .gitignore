@@ -1,4 +1,6 @@
+.codex/config.toml
 *.log
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
