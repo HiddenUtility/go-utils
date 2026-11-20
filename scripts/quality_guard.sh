@@ -25,4 +25,5 @@ golangci-lint run -v
 echo "[3/3] Running go test..."
 go test -v ./...
 
+
 echo "=== Quality Guard Passed! ==="
