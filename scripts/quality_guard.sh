@@ -16,10 +16,6 @@ echo "[1/3] Running go fmt..."
 go fmt ./...
 
 echo "[2/3] Running golangci-lint..."
-if ! command -v golangci-lint &> /dev/null; then
-    echo "Error: golangci-lint is not installed."
-    exit 1
-fi
 golangci-lint run -v
 
 echo "[3/3] Running go test..."
