@@ -70,7 +70,7 @@ func TestLogRecode_ToLog(t *testing.T) {
 	if !strings.Contains(got, msg) {
 		t.Errorf("ToLog() = %q; want it to contain %q", got, msg)
 	}
-	
+
 	expectedPidPart := fmt.Sprintf("[%d]", rec.Pid)
 	if !strings.Contains(got, expectedPidPart) {
 		t.Errorf("ToLog() = %q; want it to contain %q", got, expectedPidPart)
@@ -139,12 +139,12 @@ func TestNewWithValidation(t *testing.T) {
 	logPath := tmpDir + "/app.log"
 
 	tests := []struct {
-		name         string
-		maxFileNum   uint32
-		maxFileSize  uint32
-		realtime     bool
-		logLevel     LogLevel
-		expectErr    bool
+		name        string
+		maxFileNum  uint32
+		maxFileSize uint32
+		realtime    bool
+		logLevel    LogLevel
+		expectErr   bool
 	}{
 		{"Valid", 1, 1, false, INFO, false},
 		{"InvalidMaxFileNum", 0, 1, false, INFO, true},
@@ -208,7 +208,7 @@ func TestLogger_LoggingMethods(t *testing.T) {
 
 	t.Run("Filtering", func(t *testing.T) {
 		lg, _ := NewWith(logPath, 7, 1024, false, INFO)
-		
+
 		_ = lg.Info("info msg")
 		if len(lg.Recodes) != 1 {
 			t.Errorf("expected 1 record, got %d", len(lg.Recodes))
@@ -327,7 +327,7 @@ func TestLogger_Rotation(t *testing.T) {
 	t.Run("RotationTrigger", func(t *testing.T) {
 		// MaxFileSize = 100 bytes
 		lg, _ := NewWith(logPath, 3, 100, false, INFO)
-		
+
 		msg := "triggering rotation with long message" // ~39 bytes
 		// 3 writes should exceed 100.
 		_ = lg.Info(msg)
@@ -350,7 +350,7 @@ func TestLogger_Rotation(t *testing.T) {
 	t.Run("MaxFileNumLimit", func(t *testing.T) {
 		// MaxFileNum = 2. Files: app.log, app.log.1
 		lg, _ := NewWith(logPath, 2, 50, false, INFO)
-		
+
 		msg := "rotation test" // ~13 bytes. 14 with newline.
 		for i := 0; i < 10; i++ {
 			_ = lg.Info(msg)
@@ -371,7 +371,7 @@ func TestLogger_Rotation(t *testing.T) {
 		tmpDir := t.TempDir()
 		logPath := tmpDir + "/app.log"
 		lg, _ := NewWith(logPath, 1, 50, false, INFO)
-		
+
 		msg := "rotation test"
 		_ = lg.Info(msg)
 		_ = lg.Out()
@@ -391,7 +391,7 @@ func TestLogger_Close(t *testing.T) {
 	t.Run("FlushOnClose", func(t *testing.T) {
 		lg, _ := New(logPath)
 		_ = lg.Info("flush me")
-		
+
 		err := lg.Close()
 		if err != nil {
 			t.Fatalf("Close failed: %v", err)
