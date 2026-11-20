@@ -10,9 +10,29 @@ func TestCopyDir(t *testing.T) {
 	src := "/tmp/test_dir_src"
 	dst := "/tmp/test_dir_dst"
 
-	// Ensure src exists (done in setup)
-	
-	err := CopyDir(src, dst)
+	// Setup: Create src directory and some files
+	err := os.MkdirAll(src, 0755)
+	if err != nil {
+		t.Fatalf("failed to create src dir: %v", err)
+	}
+	defer os.RemoveAll(src)
+	defer os.RemoveAll(dst)
+
+	err = os.WriteFile(filepath.Join(src, "file1.txt"), []byte("hello"), 0644)
+	if err != nil {
+		t.Fatalf("failed to create file1: %v", err)
+	}
+
+	err = os.MkdirAll(filepath.Join(src, "subdir"), 0755)
+	if err != nil {
+		t.Fatalf("failed to create subdir: %v", err)
+	}
+	err = os.WriteFile(filepath.Join(src, "subdir/file2.txt"), []byte("world"), 0644)
+	if err != nil {
+		t.Fatalf("failed to create file2: %v", err)
+	}
+
+	err = CopyDir(src, dst)
 	if err != nil {
 		t.Fatalf("CopyDir failed: %v", err)
 	}
@@ -59,8 +79,4 @@ func TestCopyDir(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Walk failed: %v", err)
 	}
-
-	// Cleanup
-	os.RemoveAll(src)
-	os.RemoveAll(dst)
 }
