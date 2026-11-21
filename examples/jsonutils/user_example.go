@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"github.com/username/go-utils/pkg/jsonutils"
 	"github.com/username/go-utils/pkg/jsonutils/models"
+	"log"
 )
 
 func main() {

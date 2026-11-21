@@ -135,7 +135,7 @@ func NewSqlLogger(dbPath string, minLogLevel SqlLogLevel, maxRecNum int) (*SqlLo
 	}
 
 	if err := l.Initialize(); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, err
 	}
 
@@ -196,13 +196,15 @@ func (l *SqlLogger) Out() error {
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback()
+	defer func() {
+		_ = tx.Rollback()
+	}()
 
 	stmt, err := tx.Prepare(`INSERT INTO recodes (timestamp, level, name, msg, pid) VALUES (?, ?, ?, ?, ?)`)
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	for _, rec := range l.recodes {
 		_, err := stmt.Exec(rec.Timestamp, int(rec.Level), rec.Name, rec.Msg, rec.PID)
@@ -288,7 +290,8 @@ func (l *SqlLogger) GetRecsWithLimit(limit int) ([]SqlLogRecode, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+
+	defer func() { _ = rows.Close() }()
 
 	var dbRecs []SqlLogRecode
 	for rows.Next() {
@@ -323,7 +326,8 @@ func (l *SqlLogger) GetRecsWith(name string, level SqlLogLevel) ([]SqlLogRecode,
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+
+	defer func() { _ = rows.Close() }()
 
 	var dbRecs []SqlLogRecode
 	for rows.Next() {

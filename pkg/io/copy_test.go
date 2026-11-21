@@ -30,6 +30,6 @@ func TestCopyFile(t *testing.T) {
 	}
 
 	// Cleanup
-	os.Remove(src)
-	os.Remove(dst)
+	_ = os.Remove(src)
+	_ = os.Remove(dst)
 }
