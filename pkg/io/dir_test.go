@@ -15,8 +15,9 @@ func TestCopyDir(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create src dir: %v", err)
 	}
-	defer os.RemoveAll(src)
-	defer os.RemoveAll(dst)
+
+	defer func() { _ = os.RemoveAll(src) }()
+	defer func() { _ = os.RemoveAll(dst) }()
 
 	err = os.WriteFile(filepath.Join(src, "file1.txt"), []byte("hello"), 0644)
 	if err != nil {

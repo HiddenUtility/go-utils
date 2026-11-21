@@ -122,13 +122,13 @@ func TestSqlLogRecode_String(t *testing.T) {
 
 func TestSqlLogger_New(t *testing.T) {
 	dbPath := "test_logger.db"
-	defer os.Remove(dbPath)
+	defer func() { _ = os.Remove(dbPath) }()
 
 	logger, err := NewSqlLogger(dbPath, SqlLogInfo, 100)
 	if err != nil {
 		t.Fatalf("NewSqlLogger failed: %v", err)
 	}
-	defer logger.Close()
+	defer logger.Close() //nolint:errcheck
 
 	if logger.dbPath != dbPath {
 		t.Errorf("Expected dbPath %s, got %s", dbPath, logger.dbPath)
@@ -143,13 +143,14 @@ func TestSqlLogger_New(t *testing.T) {
 
 func TestSqlLogger_LogFiltering(t *testing.T) {
 	dbPath := "test_filter.db"
-	defer os.Remove(dbPath)
+
+	defer func() { _ = os.Remove(dbPath) }()
 
 	logger, err := NewSqlLogger(dbPath, SqlLogInfo, 100)
 	if err != nil {
 		t.Fatalf("NewSqlLogger failed: %v", err)
 	}
-	defer logger.Close()
+	defer logger.Close() //nolint:errcheck
 
 	// Should be allowed
 	logger.Log(SqlLogInfo, "test-name", "info message")
@@ -172,13 +173,14 @@ func TestSqlLogger_LogFiltering(t *testing.T) {
 
 func TestSqlLogger_OutAndSearch(t *testing.T) {
 	dbPath := "test_out.db"
-	defer os.Remove(dbPath)
+
+	defer func() { _ = os.Remove(dbPath) }()
 
 	logger, err := NewSqlLogger(dbPath, SqlLogDebug, 10)
 	if err != nil {
 		t.Fatalf("NewSqlLogger failed: %v", err)
 	}
-	defer logger.Close()
+	defer logger.Close() //nolint:errcheck
 
 	logger.Log(SqlLogInfo, "app", "msg1")
 	logger.Log(SqlLogWarning, "db", "msg2")
@@ -224,13 +226,13 @@ func TestSqlLogger_OutAndSearch(t *testing.T) {
 
 func TestSqlLogger_Reduce(t *testing.T) {
 	dbPath := "test_reduce.db"
-	defer os.Remove(dbPath)
+	defer func() { _ = os.Remove(dbPath) }()
 
 	logger, err := NewSqlLogger(dbPath, SqlLogDebug, 5)
 	if err != nil {
 		t.Fatalf("NewSqlLogger failed: %v", err)
 	}
-	defer logger.Close()
+	defer logger.Close() //nolint:errcheck
 
 	// Fill up to 10 records in DB
 	for i := 0; i < 10; i++ {

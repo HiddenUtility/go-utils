@@ -187,7 +187,8 @@ func (l *Logger) Out() error {
 	if err != nil {
 		return fmt.Errorf("failed to open log file: %w", err)
 	}
-	defer f.Close()
+
+	defer func() { _ = f.Close() }()
 
 	if _, err := f.WriteString(logData); err != nil {
 		return fmt.Errorf("failed to write to log file: %w", err)
@@ -243,7 +244,7 @@ func (l *Logger) rotate() error {
 	if err != nil {
 		return err
 	}
-	f.Close()
+	_ = f.Close()
 
 	return nil
 }

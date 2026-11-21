@@ -10,7 +10,7 @@ func TestWriteStringToFile(t *testing.T) {
 	content := "Hello, Go Utils!"
 
 	// Cleanup after test
-	defer os.Remove(tmpFile)
+	defer func() { _ = os.Remove(tmpFile) }()
 
 	err := WriteStringToFile(tmpFile, content)
 	if err != nil {
